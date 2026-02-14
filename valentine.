@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body { 
+    display: flex; flex-direction: column; align-items: center; 
+    justify-content: center; /* This centers the envelope vertically at the start */
+    min-height: 100vh; background-color: #ffeef0; font-family: 'Georgia', serif;
+    margin: 0; padding: 20px;
+    box-sizing: border-box;
+  }
+
+  /* The Envelope */
+  .envelope {
+    width: 280px; height: 180px; background: #d63031;
+    position: relative; border-radius: 0 0 10px 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    display: flex; justify-content: center; align-items: center;
+    cursor: pointer; z-index: 10;
+    transition: transform 0.3s;
+    flex-shrink: 0; /* Prevents envelope from squishing */
+  }
+  
+  .envelope:active { transform: scale(0.95); }
+
+  /* The Flap */
+  .envelope::before {
+    content: ""; position: absolute; top: -90px; left: 0;
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-bottom: 90px solid #b71c1c;
+  }
+
+  .click-me {
+    color: white; font-size: 0.9rem; text-transform: uppercase;
+    letter-spacing: 2px; text-align: center; line-height: 1.5;
+  }
+
+  /* THE LETTER */
+  #myLetter {
+    display: none; 
+    opacity: 0;
+    width: 100%; max-width: 350px;
+    background: white; 
+    padding: 30px; 
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    color: #333;
+    transition: opacity 0.6s ease;
+    box-sizing: border-box;
+    margin-top: 40px; /* Space after envelope when it appears */
+  }
+
+  h3 { color: #d63031; text-align: center; margin-top: 0; }
+  .date { font-size: 0.8rem; color: #999; text-align: center; margin-bottom: 15px; }
+  
+  .message-content { 
+    font-size: 0.95rem; 
+    line-height: 1.6; 
+    white-space: pre-line; 
+    text-align: left;
+  }
+
+  .lyrics { 
+    font-style: italic; 
+    color: #b71c1c; 
+    font-weight: bold; 
+    display: block; 
+    margin-top: 20px;
+    margin-bottom: 5px;
+    padding-left: 10px;
+    border-left: 3px solid #d63031;
+  }
+  
+  .blessed-card {
+    margin-top: 25px; padding: 20px; background: #fff5f5;
+    border: 1px solid #ffcccc; border-radius: 12px; text-align: center;
+  }
+
+  .heart {
+    position: fixed; color: #ff7675; font-size: 20px;
+    animation: float 4s infinite linear; opacity: 0; bottom: -10%;
+    pointer-events: none;
+  }
+  @keyframes float {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-110vh); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="envelope" id="env" onclick="revealLetter()">
+    <div class="click-me">FOR MY RED ❤️<br><small>(Tap to Open)</small></div>
+  </div>
+  
+  <div id="myLetter">
+    <div class="date">February 14, 2026</div>
+    <h3>To: My Red</h3>
+    
+    <div class="message-content">
+      Happy Valentines, Red! 
+
+      Tbh, It’s still not sinking in saakin that we only started talking on January 1st. I’ve never clicked with someone this fast na para bang we just skipped the awkward phase agad and got comfortable immediately. It’s so rare to find and feel that, pero with you, it really felt natural.
+
+      I’ve been thinking a lot about the song you wrote for me (lss nako super) and I wanted to give you my real response to THOSE lyrics hehe IM TRYING MY BEST TO INTERPRET THAT AAAAA
+
+      <span class="lyrics">'Sana’y dinggin ang aking katok'</span>the truth is, you didn't even have to knock loudly :) ever since we started talking, I was already listening. na-adapt kita so quickly because your soul felt familiar talaga, like a sound I had been waiting for a while…
+
+      <span class="lyrics">'Sa iyong dambuhalang tarangkahan, sagradong lubos'</span>Yes I’ve always kept my world guarded, but with you, those dambuhalang gates didn't feel heavy anymore. You made me feel so comfortable and safe that I didn't just let you in— I welcomed you into the most sacred parts of who I truly am :)
+
+      <span class="lyrics">'Iyong tanggapin at pakinggan, hiyaw ng puso’t gunita na aking pinanghahawakan'</span>I hear you, always. Lagi kong nadidinig ang pagmamahal na never mong ipinagkait iparamdam sa akin. I promise to always hold those 'gunitas' with the same care you give me. Thank you for always having my back and for being the one who's 'down' for me, through my every high and low.
+
+      <span class="lyrics">'Patawad sinta, mali ba na...'</span>ewan ko, putol kasi hehehhwheheh thank you so mu-
+
+      ANYWAYS, LL END IT HERE KASE ANG HABA NA NYA SA CODING TSAHAHA! HAPPY V DAY AGAIN, MWA! TO THE MOON AND BACK!! (para may scientific explanation pa rin 😉)
+    </div>
+
+    <div class="blessed-card">
+       <b style="color: #d63031; font-size: 1.1rem;">Blessed</b><br>
+       <span style="color: #666; font-size: 0.9rem;">Daniel Caesar</span>
+    </div>
+
+    <p style="text-align: center; margin-top: 25px;">Love, <br> <b>Lexa <3</b></p>
+  </div>
+
+<script>
+  function revealLetter() {
+    var letter = document.getElementById("myLetter");
+    var body = document.body;
+    
+    // Change body to allow scrolling and align to top once letter is shown
+    body.style.justifyContent = "flex-start";
+    
+    letter.style.display = "block";
+    setTimeout(function() {
+      letter.style.opacity = "1";
+    }, 10);
+    
+    // Scroll smoothly to the letter
+    letter.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  setInterval(function() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = '❤️';
+    heart.style.left = Math.random() * 100 + 'vw';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 4000);
+  }, 500);
+</script>
+
+</body>
+</html>
